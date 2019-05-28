@@ -19,6 +19,11 @@
                     <div class="card-footer text-right">
                         
                         <button type="button" class="btn btn-info">カートへ入れる</button>
+                        <form action="/product/session" method="post">
+{{ csrf_field() }}    
+        <input type="text" name="input">
+        <input type="submit" value="send">
+        </form>
                     </div>
                 </div>      
             </div>    

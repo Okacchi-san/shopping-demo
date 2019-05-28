@@ -21,6 +21,12 @@ class ProductController extends Controller
     }
     
     
+    public function indexSession()
+    {
+        return view('products.session');
+    }
+    
+    
     public function ses_get(Request $request)
     {
         $sesdata = $request->session()->get('name')['input'];

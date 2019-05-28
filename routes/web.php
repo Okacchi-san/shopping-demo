@@ -30,5 +30,7 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 Route::get('product','ProductController@index')->name('product.get');
 
-Route::get('product/session','ProductController@ses_get');
+Route::get('product/session','ProductController@indexSession');
+//session
+//Route::get('product/session','ProductController@ses_get');
 Route::post('product/session','ProductController@ses_put');
