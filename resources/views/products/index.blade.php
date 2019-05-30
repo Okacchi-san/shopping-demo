@@ -21,6 +21,8 @@
                         {{ csrf_field() }}    
                         <input type="text" name="input">
                         <input type="text" name="[$product->name]" valu="">
+                        <input type="text" name="[$product->name]" valu="">
+                        <input type="text" name="[$product->name]" valu="">
                         <button type="submit" class="btn btn-info">カートへ入れる</button>
                         
     
