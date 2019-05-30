@@ -23,19 +23,17 @@ class ProductController extends Controller
     
     public function indexSession(Request $request)
     {
-        if ($request->session()->has('name')) {
-            
-        $sesdata = $request->session()->get('name')['input'];
+        
+        $sesdata = $request->session()->get('msg')['input'];
         
         return view('products.session',['session_data' => $sesdata]);
-    }
 }
 
     public function ses_put(Request $request)
     {
-        $name = $request->input();
+        $msg = $request->input();
         
-        $request->session()->put('name',$name);
+        $request->session()->put('msg',$msg);
         return redirect('product');
     }
 

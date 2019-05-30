@@ -17,12 +17,15 @@
                         <p class="card-text">価格{{ $product->amount }}円</p>
                     </div>
                     <div class="card-footer text-right">
+                     <form action="/product/session" method="post">
+                        {{ csrf_field() }}    
+                        <input type="text" name="input">
+                        <input type="text" name="[$product->name]" valu="">
+                        <button type="submit" class="btn btn-info">カートへ入れる</button>
                         
-                        <button type="button" class="btn btn-info">カートへ入れる</button>
-                        <form action="/product/session" method="post">
-{{ csrf_field() }}    
-        <input type="text" name="input">
-        <input type="submit" value="send">
+    
+        
+     
         </form>
                     </div>
                 </div>      
