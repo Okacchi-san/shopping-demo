@@ -19,10 +19,9 @@
                     <div class="card-footer text-right">
                      <form action="/product/session" method="post">
                         {{ csrf_field() }}    
-                        <input type="text" name="input">
-                        <input type="text" name="[$product->name]" valu="">
-                        <input type="text" name="[$product->name]" valu="">
-                        <input type="text" name="[$product->name]" valu="">
+                        
+                        <input readonly type="hidden" name="productName" value="{{ $product->name }}">
+                        
                         <button type="submit" class="btn btn-info">カートへ入れる</button>
                         
     

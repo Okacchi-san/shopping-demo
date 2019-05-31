@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    <p>{{ $session_data }}</p>   
 
+    <p>{{ $product_name }}</p>
+
+ 
 @endsection  
