@@ -8,12 +8,12 @@ use App\Product;
 class ProductController extends Controller
 {
     
-    public function __construct()
+    public function __construct(Product $product)
     {
-        $this->middleware('auth');
+        $this->product = $product;
     }
     
-    public function index(Request $request)
+    public function index()
     {
         $products = Product::all();
         
@@ -21,20 +21,38 @@ class ProductController extends Controller
     }
     
     
-    public function indexSession(Request $request)
+    public function store(Request $request)
     {
+        $productId = $request->session()->get('productId');
+        $product = Product::find($productId);
         
-        $productname = $request->session()->get('msg')['productName'];
-        
-        return view('products.session',['product_name' => $productname]);
-}
+        $qty = $request->session()->get('qty');
+        dd($qty);
+        $count_products = collect($productId)->count();
+        dd($count_products);
+        return view('products.session',[
+            'product' => $product,
+            'qty' => $qty,
+            'count_products' => $count_products,
+        ]);
+    }
+    
+    
+
 
     public function ses_put(Request $request)
     {
-        $msg = $request->input();
+        $product_info = $request->input('productInfo');
+        $productInfo = explode(",",$product_info);
+        $qty = $request->post('qty');
         
-        $request->session()->put('msg',$msg);
-        return redirect('product');
+        $request->session()->push('productId',$productInfo[0]);
+        $request->session()->push('qty',$qty);
+        
+        
+        
+        return redirect()->route('product.get');
     }
+
 
 }
