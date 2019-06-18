@@ -1,0 +1,64 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Product;
+
+class ProductController extends Controller
+{
+    
+    public function __construct(Product $product)
+    {
+        $this->product = $product;
+    }
+    
+    public function index()
+    {
+        $products = Product::all();
+        
+        return view('products.index', ['products' => $products]);
+    }
+    
+    
+    public function store(Request $request)
+    {
+        $productId = $request->session()->get('productId');
+        
+        
+        $product = Product::find($productId);
+        
+        $qty = $request->session()->get('qty');
+        
+        
+        $products = collect([
+            'id' => $product[0]->id,
+            'name' => $product[0]->name,
+            'amaount' => $product[0]->amount,
+            'qty' => $qty[0],
+            ]);
+        dd($products);
+          
+        $count_products = collect($productId)->count();
+        
+        return view('products.session',[
+            'products' => $products,
+            
+            'count_products' => $count_products,
+        ]);
+    }
+    
+
+    public function ses_put(Request $request)
+    {
+        $productId = $request->input('productId');
+        $qty = $request->input("qty");
+        
+        $request->session()->push('productId',$productId);
+        $request->session()->push('qty',$qty);
+        
+        return redirect()->route('product.get');
+    }
+
+
+}

@@ -1,0 +1,99 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Product;
+
+
+class ProductController extends Controller
+{
+    
+    public function __construct(Product $product)
+    {
+        $this->product = $product;
+    }
+    
+    public function index()
+    {
+        $products = Product::all();
+        
+        return view('products.index', ['products' => $products]);
+    }
+    
+    
+    public function store(Request $request)
+    {
+        $cart = collect($request->session()->get('cart'));
+        $productId = $request->session()->get('productId');
+        $count_products = collect($productId)->count();
+        
+        return view('products.session',[
+            'cart' => $cart,
+            'count_products' => $count_products,
+        ]);
+    }
+    
+
+    public function ses_push(Request $request)
+    {
+        $productId = $request->productId;
+        $product = Product::find($productId);
+
+        $cart = [
+            'id' => $product->id,
+            'name' => $product->name,
+            'amount' => $product->amount,
+            'qty' => $request->qty,
+        ];
+
+        $oldCart = collect($request->session()->get('cart')); 
+        
+        if($oldCart->isEmpty())
+        {
+
+            $request->session()->push('cart',$cart);
+            $request->session()->push('productId',$productId);
+        
+        return redirect()->route('product.get');
+        }
+        
+        if($oldCart->isNotEmpty())
+        {
+            $this -> update($request);  
+ 
+            return redirect()->route('product.get');    
+        
+        }else{
+            
+            $request->session()->push('cart',$cart);
+            return redirect()->route('product.get');
+                    
+        }
+    }
+    
+    public function update(Request $request)
+    {
+        $oldCart = collect($request->session()->get('cart'));    
+        $productId = $request->productId;
+        $product = Product::find($productId);
+
+        $cart = [
+            'id' => $product->id,
+            'name' => $product->name,
+            'amount' => $product->amount,
+            'qty' => $request->qty,
+        ];
+        
+             foreach($oldCart as $val)
+            {
+                if($val['id'] = $cart['id'])
+                {
+                    $cart['qty'] = $cart['qty'];
+                
+                    
+                }
+            } 
+        
+    }
+}

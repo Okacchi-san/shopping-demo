@@ -32,5 +32,9 @@ Route::get('product','ProductController@index')->name('product.get');
 
 Route::get('product/session','ProductController@store')->name('session.get');
 //session
-Route::post('product/session','ProductController@ses_put');
+Route::post('product/session','ProductController@ses_push');
+
+
+
+
 

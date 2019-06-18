@@ -1,0 +1,104 @@
+@charset "utf-8";
+
+/* session.blade.php */
+.session__table__th{
+    font-size:14px;
+    font-weight:300;
+    color:#666666;
+}
+
+.session__table__td{
+    font-weight:400;
+    color:#333333;
+}
+
+.session__btn{
+    font-size:11px;
+    color:#fff;
+    background-color:#CC003A;
+}
+
+.session__btn:hover{
+    
+    color:#fff;
+    background-color:#99002B;
+}
+
+.session__items_count{
+    font-size:9px;
+    font-weight:200;
+    color:#666666;
+    
+}
+
+/* index.blade.php */
+.index__card__form{
+    margin:0;
+    padding:0;
+}
+
+.index__card__container{
+    margin:0;
+    padding:0;
+}
+
+.index__card__row{
+    margin:0;
+    padding:0;
+}
+
+.index__card__col{
+    margin:0;
+}
+
+.index__card__title__id{
+    font-size:12px;
+    font-weight:200;
+    color:#666666;
+}
+
+.index__card__title{
+    font-size:14px;
+    font-weight:300;
+    color:#666666;
+}
+
+.index__card__product{
+    font-size:17px;
+    font-weight:400;
+    color:#333333;
+}
+
+.index__card__qty__title{
+    font-size:12px;
+    font-weight:300;
+    color:#666666;
+}
+
+.index__card__qty__qty{
+    font-size:12px;
+    font-weight:300;
+    color:#666666;
+    height:25px;
+}
+
+.index__card__cart{
+    font-size:12px;
+    font-weight:300;
+   
+}
+
+/* navber.blade.php */
+.nav__brand{
+    font-size:16px;
+    font-weight:300;
+    color:#666666;
+}
+
+.nav__title{
+    font-size:14px;
+}
+
+.nav__title__out{
+    font-size:12px;
+}

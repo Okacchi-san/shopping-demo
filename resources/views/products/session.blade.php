@@ -1,18 +1,72 @@
 @extends('layouts.app')
 @section('content')
-
-    @if (isset($product) and count($product) > 0)
-    
-        @foreach ($product as $product)
-    
-        <p>商品名：　{{ $product->name }}</p>
-        <p>個　数：　</p>
-        <p>価　格：　{{ $product->amount }}円</p>
-        
+    <table class="table table-sm">
+    <thead>
+        <tr>
+            <th class="session__table__th" scope="col"></th>
+            <th class="session__table__th" scope="col">商品名</th>
+            <th class="session__table__th" scope="col">個　数</th>
+            <th class="session__table__th" scope="col">価　格</th>
+            <th class="session__table__th" scope="col">小　計</th>
+            <th class="session__table__th" scope="col"></th>
+        </tr>
+  </thead>
+  <tbody>
+    @php
+        $i = 0;
+        $total = 0;
+        $tax = 0;
+        $sum_qty = 0;
+    @endphp
+    @if (session()->has('cart'))
+        @foreach ($cart as $product)
+            <tr>
+                <th class="session__table__th py-auto" scope="row">{{ ++$i }}</th>
+                <td class="session__table__td">{{ $product[0]['name'] }}</td>
+                <td class="session__table__td">　　{{ $product[0]['qty'] }}</td>
+                <td class="session__table__td">{{ $product[0]['amount'] }}円</td>
+                @php
+                    $subTotal = $product[0]['qty']*$product[0]['amount'];
+                    $qty = $product[0]['qty']
+                @endphp
+                <td class="session__table__td">{{ $subTotal }}円</td>
+                <td class="text-center">
+                    <a href="#" class="btn btn-sm session__btn">商品削除</a>
+                </td>
+            </tr>
+            @php
+                $total += $subTotal;
+                $tax = $total*0.08;
+                $sum_qty += $product[0]['qty'];
+            @endphp
         @endforeach   
-        <p>{{ $count_products }}</p>
     @else
         <p>セッションに保存されていません。</p>
+        
     @endif
+    </tbody>
+    </table>    
+    
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-8">
+            </div>
+            <div class="col-3">
+            <div class="card" style="width: 15rem;">
+                <div class="card-header text-center"><small class="text-muted">お買い上げ金額　<spn class=session__items_count>アイテム数：{{ $sum_qty }}個</spn></small></div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-right"><small class="text-muted">小　計：　　{{ $total }}円</small></li>
+                        <li class="list-group-item text-right"><small class="text-muted">消費税：　　{{ $tax }}円</small></li>
+                        <li class="list-group-item text-right"><small class="text-muted">合　計：　　{{ $total+$tax }}円</small></li>
+                        <div class="list-group-item text-center">
+                            <a href="#" class="btn btn-success btn-sm">購入する</a>
+                        </div>
+                    </ul>
+            </div>  
+            </div>
+        </div>
+    </div>
+@endsection
 
-@endsection  
+
+  
