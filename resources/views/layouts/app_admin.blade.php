@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <link href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" rel="stylesheet">
     <link href="{{ asset('css/style.css' )}}" rel="stylesheet" type="text/css">
+        <style>body{background-color: #26263c;}</style>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -16,7 +17,7 @@
     <!--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--> 
 </head>
 <body>
-   @include('commons.navbar')
+   @include('commons.navbar_admin')
     
     <div class="container">
         @include('commons.error_messages')

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app_admin')
 
 @section('content')
 
@@ -10,7 +10,7 @@
                 <div class="card-header text-white bg-dark text-center">Login</div>
 
                 <div class="card-body">
-                    {!! Form::open(['route' => 'login.post']) !!}
+                    {!! Form::open(['route' => 'admin_login_post']) !!}
                 
                 <div class="form-group">
                     {!! Form::label('email', 'Email', ['class' => 'col-form-label-sm']) !!}
@@ -27,7 +27,6 @@
                 {!! Form::submit('Log in', ['class' => 'btn btn-primary btn-block']) !!}
                 </div>
                 <div class="col-7 text-left ">
-                <a class="btn btn-link btn-sm" href="{{ route('password.request') }}">Forgot Password?</a>
                 </div></div>
                 
                 {!! Form::close() !!}

@@ -4,8 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use App\Product;
-use Illuminate\Http\Request;
+
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -20,7 +19,7 @@ class ComposerServiceProvider extends ServiceProvider
         
         View::composer('*', function($view) {
             $view->with('cart', \Session::get('cart'));
-            
+        
         });
     }
 

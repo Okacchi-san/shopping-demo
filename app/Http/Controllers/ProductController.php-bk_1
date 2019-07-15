@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 
+
 class ProductController extends Controller
 {
     
@@ -23,27 +24,13 @@ class ProductController extends Controller
     
     public function store(Request $request)
     {
+        $cart = $request->session()->get('cart');
         $productId = $request->session()->get('productId');
-        
-        
-        $product = Product::find($productId);
-        
-        $qty = $request->session()->get('qty');
-        
-        
-        $products = collect([
-            'id' => $product[0]->id,
-            'name' => $product[0]->name,
-            'amaount' => $product[0]->amount,
-            'qty' => $qty[0],
-            ]);
-        dd($products);
-          
         $count_products = collect($productId)->count();
+        dd($cart);
         
         return view('products.session',[
-            'products' => $products,
-            
+            'cart' => $cart,
             'count_products' => $count_products,
         ]);
     }
@@ -54,8 +41,18 @@ class ProductController extends Controller
         $productId = $request->input('productId');
         $qty = $request->input("qty");
         
+        $product = Product::find($productId);
+        
+        
+        $cart[$productId] = [
+            'id' => $product->id,
+            'name' => $product->name,
+            'amount' => $product->amount,
+            'qty' => $qty,
+        ];
+        
+        $request->session()->push('cart',$cart);
         $request->session()->push('productId',$productId);
-        $request->session()->push('qty',$qty);
         
         return redirect()->route('product.get');
     }

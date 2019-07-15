@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Product;
 
 class ProductController extends Controller
@@ -17,7 +18,7 @@ class ProductController extends Controller
     {
         $products = Product::all();
         
-        return view('products.index', ['products' => $products]);
+        return view('products.index_admin', ['products' => $products]);
     }
     
     
@@ -25,7 +26,7 @@ class ProductController extends Controller
     {
         $cart = collect($request->session()->get('cart'));
         
-        return view('products.session');
+        return view('products.session_admin');
     }
     
 
@@ -46,7 +47,7 @@ class ProductController extends Controller
         {
             $request->session()->push('cart.'.$cart['id'], $cart);
         
-            return redirect()->route('product.get');
+            return redirect()->route('admin_product.get');
         
         }else{
              foreach($oldCart as $val)
@@ -63,7 +64,7 @@ class ProductController extends Controller
    
                 }
             } 
-            return redirect()->route('product.get');
+            return redirect()->route('admin_product.get');
         }
     }
     

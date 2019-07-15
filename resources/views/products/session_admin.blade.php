@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app_admin')
 @section('content')
     <table class="table table-sm">
     <thead>
@@ -27,13 +27,13 @@
                 <td class="session__table__td">&emsp;&emsp;
                     {{ $product[0]['qty'] }}
                     <span class="form-inline">&emsp;
-                    <form action='{{ route('session.update') }}' method="POST">
+                    <form action='{{ route('admin_session.update') }}' method="POST">
                         {{ method_field('put') }}
                         {{ csrf_field() }}
                             <input readonly type="hidden" name="productIdInc" value="{{ $product[0]['id'] }}">
                             <button type="submit" class="btn session__btn__update">＋</button>
                     </form>
-                    <form action='{{ route('session.update') }}' method="POST">
+                    <form action='{{ route('admin_session.update') }}' method="POST">
                         {{ method_field('put') }}
                         {{ csrf_field() }}
                             <input readonly type="hidden" name="productIdDec" value="{{ $product[0]['id'] }}">
@@ -48,7 +48,7 @@
                 @endphp
                 <td class="session__table__td">{{ $subTotal }}円</td>
                 <td class="text-center">
-                    <form action='{{ route('session.delete') }}' method="POST">
+                    <form action='{{ route('admin_session.delete') }}' method="POST">
                         {{ method_field('delete') }}
                         {{ csrf_field() }}
                             <input readonly type="hidden" name="productId" value="{{ $product[0]['id'] }}">

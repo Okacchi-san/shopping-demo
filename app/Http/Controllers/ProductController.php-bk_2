@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 
-
 class ProductController extends Controller
 {
     
@@ -24,38 +23,89 @@ class ProductController extends Controller
     
     public function store(Request $request)
     {
-        $cart = $request->session()->get('cart');
-        $productId = $request->session()->get('productId');
-        $count_products = collect($productId)->count();
-        dd($cart);
+        $cart = collect($request->session()->get('cart'));
         
-        return view('products.session',[
-            'cart' => $cart,
-            'count_products' => $count_products,
-        ]);
+        return view('products.session');
     }
     
 
-    public function ses_put(Request $request)
+    public function ses_push(Request $request)
     {
-        $productId = $request->input('productId');
-        $qty = $request->input("qty");
-        
+        $productId = $request->productId;
         $product = Product::find($productId);
-        
-        
-        $cart[$productId] = [
+        $cart = [
             'id' => $product->id,
             'name' => $product->name,
             'amount' => $product->amount,
-            'qty' => $qty,
+            'qty' => $request->qty,
         ];
+        $oldCart = collect($request->session()->get('cart')); 
         
-        $request->session()->push('cart',$cart);
-        $request->session()->push('productId',$productId);
         
-        return redirect()->route('product.get');
+        if($oldCart->isEmpty())
+        {
+            $request->session()->push('cart.'.$cart['id'], $cart);
+        
+            return redirect()->route('product.get');
+        
+        }else{
+             foreach($oldCart as $val)
+            {
+                if($val[0]['id'] === $cart['id'])
+                {
+                    $cart['qty'] += $val[0]['qty'];
+                   
+                    $request->session()->forget('cart.'.$cart['id']);
+                    $request->session()->push('cart.'.$cart['id'], $cart);
+                    
+                }else{
+                    $request->session()->push('cart.'.$cart['id'], $cart);
+   
+                }
+            } 
+            return redirect()->route('product.get');
+        }
     }
+    
+    public function update(Request $request)
+    {
+        $productIdInc = $request->productIdInc;
+        $productIdDec = $request->productIdDec;
+        $product = Product::find($productIdInc);
+        $product = Product::find($productIdDec);
+        $carts = $request->session()->get('cart');
+        
+        foreach($carts as $cart){
+            if($cart[0]['id'] == $productIdInc){
+                $cart[0]['qty']++;
+                
+                $request->session()->put('cart.'.$productIdInc, $cart);
+            }
+            if($cart[0]['id'] == $productIdDec){
+                $cart[0]['qty']--;
+                
+                if($cart[0]['qty'] == 0){
+                    
+                }
+                
+                $request->session()->put('cart.'.$productIdDec, $cart);
+            }
+        }
+        //dd($request->session()->get('cart'));
+        //$request->session()->save('cart',$carts);
+        //dd($carts);
+        return back();
+                
 
-
+        
+    }
+    
+    public function destroy(Request $request)
+    {
+        $productId = $request->productId;
+        
+        $request->session()->forget('cart.'.$productId);
+        
+        return back();
+    }
 }

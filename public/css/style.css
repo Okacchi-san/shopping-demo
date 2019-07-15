@@ -12,6 +12,12 @@
     color:#333333;
 }
 
+.session__table__td__amount{
+    font-size:14px;
+    font-weight:300;
+    color:#666666;
+    
+}
 .session__btn{
     font-size:11px;
     color:#fff;
@@ -22,6 +28,15 @@
     
     color:#fff;
     background-color:#99002B;
+}
+
+.session__btn__update{
+    font-size:6px;
+    color:#fff;
+    background-color:#F4AA03;
+    margin-left:2px;
+    padding:2px 3px;
+    
 }
 
 .session__items_count{
