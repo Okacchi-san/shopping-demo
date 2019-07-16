@@ -71,6 +71,8 @@ class ProductController extends Controller
     {
         $productIdInc = $request->productIdInc;
         $productIdDec = $request->productIdDec;
+        $product = Product::find($productIdInc);
+        $product = Product::find($productIdDec);
         $carts = $request->session()->get('cart');
         
         foreach($carts as $cart){
@@ -80,16 +82,22 @@ class ProductController extends Controller
                 $request->session()->put('cart.'.$productIdInc, $cart);
             }
             if($cart[0]['id'] == $productIdDec){
-                if($cart[0]['qty'] == 1){
-                   $request->session()->forget('cart.'.$productIdDec); 
-                }else{
-                    $cart[0]['qty']--;
-
-                    $request->session()->put('cart.'.$productIdDec, $cart);    
+                $cart[0]['qty']--;
+                
+                if($cart[0]['qty'] == 0){
+                    
                 }
+                
+                $request->session()->put('cart.'.$productIdDec, $cart);
             }
         }
+        //dd($request->session()->get('cart'));
+        //$request->session()->save('cart',$carts);
+        //dd($carts);
         return back();
+                
+
+        
     }
     
     public function destroy(Request $request)
