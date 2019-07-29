@@ -21,6 +21,49 @@ class ProductController extends Controller
         return view('products.index_admin', ['products' => $products]);
     }
     
+    public function create()
+    {
+        $products = new Product;
+        
+        return view('products.create',[
+            'products' => $products,
+            ]);
+    }
+    
+    public function adminStore(Request $request)
+    {
+        $this->validate($request, [
+            'file' => [
+                // 必須
+                'required',
+                // アップロードされたファイルであること
+                'file',
+                // 画像ファイルであること
+                'image',
+                // MIMEタイプを指定
+                'mimes:jpeg,png',
+            ]
+        ]);
+        
+        if ($request->file('file')->isValid([])) {
+            $filename = $request->file->store('public/productImages');
+
+            $product = Product::create([
+                    'name'          =>$request['name'],
+                    'amount'        =>$request['amount'],
+                    'image'         =>basename($filename),
+                    'description'   =>$request['description']
+            ]);
+            
+            return redirect()->route('admin_home')->with('success', '保存しました。');
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors(['file' => '画像がアップロードされていないか不正なデータです。']);
+        }
+        
+    }
     
     public function store(Request $request)
     {
@@ -29,7 +72,6 @@ class ProductController extends Controller
         return view('products.session_admin');
     }
     
-
     public function ses_push(Request $request)
     {
         $productId = $request->productId;

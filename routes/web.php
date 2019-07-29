@@ -56,8 +56,9 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
 // admin
-Route::group(['prefix' => 'admin'], function(){
-    Route::get('login', 'Admin\Auth\LoginController@showAdminLoginForm')->name('admin_login');
+Route::get('admin/login', 'Admin\Auth\LoginController@showAdminLoginForm')->name('admin_login');
+Route::middleware('auth')->prefix('admin')->group(function(){
+    
     Route::post('login', 'Admin\Auth\LoginController@login')->name('admin_login_post');
     Route::post('logout', 'Admin\Auth\LoginController@logout')->name('admin_logout');
     Route::get('logout', 'Admin\Auth\LoginController@logout')->name('admin_logout_get');
@@ -76,6 +77,9 @@ Route::group(['prefix' => 'admin'], function(){
     
     
     Route::get('product','Admin\ProductController@index')->name('admin_product.get');
+    Route::get('product/create','Admin\ProductController@create')->name('product.create');
+    Route::post('product/store','Admin\ProductController@adminStore')->name('product.store');
+    
     //session
     Route::get('product/session','Admin\ProductController@store')->name('admin_session.get');
     Route::post('product/session','Admin\ProductController@ses_push');

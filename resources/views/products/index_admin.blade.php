@@ -11,7 +11,9 @@
                         商品番号：{{ $product->id }}    
                     </div>
                     <div class="card-body">
+                        <p><img src="{{ asset('storage/productImages/' . $product->image) }}" alt="images"/></p>
                         <h5 class="card-title index__card__title">商品名　：　<span class="index__card__product">{{ $product->name }}</span></h5>
+                        
                         <p class="card-text index__card__title">価　格　：　<span class="index__card__product">{{ $product->amount }}円</span></p>
                     </div>
                     <div class="card-footer text-right">

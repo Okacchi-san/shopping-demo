@@ -27,6 +27,7 @@
                 {!! Form::submit('Log in', ['class' => 'btn btn-primary btn-block']) !!}
                 </div>
                 <div class="col-7 text-left ">
+                <a class="btn btn-link btn-sm" href="{{ route('password.request') }}">Forgot Password?</a>
                 </div></div>
                 
                 {!! Form::close() !!}
