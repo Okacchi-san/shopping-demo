@@ -24,6 +24,12 @@
     background-color:#CC003A;
 }
 
+.session__btn__adminupdate{
+    font-size:11px;
+    color:#fff;
+    background-color:;
+    
+}
 .session__btn:hover{
     
     color:#fff;
@@ -90,6 +96,9 @@
     color:#666666;
 }
 
+.index__card__description{
+    font-size:11px;
+}
 .index__card__qty__qty{
     font-size:12px;
     font-weight:300;

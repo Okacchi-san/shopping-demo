@@ -10,6 +10,7 @@
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
                 @if (Auth::check())
+                    <li class="nav-item nav__title">{!! link_to_route('admin_user.get', '会員一覧', [], ['class' => 'nav-link']) !!}</li>
                     <li class="nav-item nav__title">{!! link_to_route('product.create', '商品登録', [], ['class' => 'nav-link']) !!}</li>
                     <li class="nav-item nav__title">{!! link_to_route('admin_product.get', '商品一覧', [], ['class' => 'nav-link']) !!}</li>
                     <li class="nav-item nav__title">{!! link_to_route('admin_session.get', 'Myカート', [], ['class' => 'nav-link']) !!}</li>

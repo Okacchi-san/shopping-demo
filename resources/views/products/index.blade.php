@@ -5,14 +5,16 @@
     <div class="row">
     @if (count($products) > 0)
         @foreach ($products as $product)
-            <div class="col-sm-4 col-md-offset-1 mx-auto">
+            <div class="col-sm-4 col-md-offset-1 mx-auto  mb-3">
                 <div class="card">
                     <div class="card-header index__card__title__id">
                         商品番号：{{ $product->id }}    
                     </div>
                     <div class="card-body">
+                        <p class="img-responsive text-center"><img src="{{ asset('storage/productImages/' . $product->image) }}" alt="images"/></p>
                         <h5 class="card-title index__card__title">商品名　：　<span class="index__card__product">{{ $product->name }}</span></h5>
                         <p class="card-text index__card__title">価　格　：　<span class="index__card__product">{{ $product->amount }}円</span></p>
+                        <p class="card-text index__card__description">{{ $product->description }}</p>
                     </div>
                     <div class="card-footer text-right">
                     <form action="/product/session" method="post" class="index__card__form">

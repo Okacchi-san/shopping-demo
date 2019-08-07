@@ -25,7 +25,7 @@
                         <textarea name="description" class="form-control" rows="5" placeholder="商品説明文は200文字以内です。"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="description">画像:</label>
+                        <label for="image">画像:</label>
                         <input type="file" id="file" name="file" class="form-control">
                     </div>
                     <div class="form-group text-center">

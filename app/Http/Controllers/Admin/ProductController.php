@@ -62,13 +62,12 @@ class ProductController extends Controller
                 ->withInput()
                 ->withErrors(['file' => '画像がアップロードされていないか不正なデータです。']);
         }
-        
     }
     
     public function store(Request $request)
     {
         $cart = collect($request->session()->get('cart'));
-        
+
         return view('products.session_admin');
     }
     
@@ -135,11 +134,44 @@ class ProductController extends Controller
         return back();
     }
     
+    public function adminEdit(Request $request)
+    {
+        $productId = $request->productId;
+        $product = Product::find($productId);
+        return view('products.edit',[
+            'product' => $product,
+            ]);
+    }
+    
+    public function adminUpdate(Request $request)
+    {
+        $productId = $request->productId;
+        $product = Product::find($productId);
+        $product->name = $request->name;
+        $product->amount = $request->amount;
+        $product->description = $request->description;
+        dd(asset('storage/productImages/' . $product->image));
+        
+        $product->save();
+        
+        return redirect()->route('admin_product.get');
+    }
+    
     public function destroy(Request $request)
     {
         $productId = $request->productId;
         
         $request->session()->forget('cart.'.$productId);
+        
+        return back();
+    }
+    
+    public function adminDestroy(Request $request)
+    {
+        $productId = $request->productId;
+        $product = Product::find($productId);
+        
+        $product->delete();
         
         return back();
     }

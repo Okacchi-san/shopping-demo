@@ -21,6 +21,7 @@ class ComposerServiceProvider extends ServiceProvider
             $view->with('cart', \Session::get('cart'));
         
         });
+        
     }
 
     /**

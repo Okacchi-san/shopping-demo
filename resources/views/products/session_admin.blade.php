@@ -1,5 +1,6 @@
 @extends('layouts.app_admin')
 @section('content')
+    <div class="card">
     <table class="table table-sm">
     <thead>
         <tr>
@@ -63,12 +64,12 @@
             @endphp
         @endforeach   
     @else
-        <p>セッションに保存されていません。</p>
+        <p>商品が選択されていません。</p>
         
     @endif
     </tbody>
     </table>    
-    
+    </div>
     <div class="container mt-5">
         <div class="row">
             <div class="col-8">

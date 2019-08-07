@@ -57,10 +57,12 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 // admin
 Route::get('admin/login', 'Admin\Auth\LoginController@showAdminLoginForm')->name('admin_login');
-Route::middleware('auth')->prefix('admin')->group(function(){
-    
-    Route::post('login', 'Admin\Auth\LoginController@login')->name('admin_login_post');
-    Route::post('logout', 'Admin\Auth\LoginController@logout')->name('admin_logout');
+Route::post('admin/login', 'Admin\Auth\LoginController@login')->name('admin_login_post');
+Route::get('/admin/home', 'Admin\HomeController@index')->name('admin_home');
+
+//Route::middleware('auth')->prefix('admin')->group(function(){
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {    
+    //Route::post('logout', 'Admin\Auth\LoginController@logout')->name('admin_logout');
     Route::get('logout', 'Admin\Auth\LoginController@logout')->name('admin_logout_get');
     
     // Registration Routes...
@@ -73,18 +75,23 @@ Route::middleware('auth')->prefix('admin')->group(function(){
     //Route::get('password/reset/{token}', 'Admin\Auth\ResetPasswordController@showResetForm')->name('password.reset');
     //Route::post('password/reset', 'Admin\Auth\ResetPasswordController@reset');
 
-    Route::get('home', 'Admin\HomeController@index')->name('admin_home');
-    
-    
     Route::get('product','Admin\ProductController@index')->name('admin_product.get');
+    //商品情報登録・更新・削除
     Route::get('product/create','Admin\ProductController@create')->name('product.create');
     Route::post('product/store','Admin\ProductController@adminStore')->name('product.store');
+    Route::get('product/edit','Admin\ProductController@adminEdit')->name('product.edit');
+    Route::put('product/update','Admin\ProductController@adminUpdate')->name('product.update');
+    Route::delete('product','Admin\ProductController@adminDestroy')->name('admin_product.delete');
     
     //session
     Route::get('product/session','Admin\ProductController@store')->name('admin_session.get');
     Route::post('product/session','Admin\ProductController@ses_push');
     Route::put('product/session','Admin\ProductController@update')->name('admin_session.update');
     Route::delete('product/session','Admin\ProductController@destroy')->name('admin_session.delete');
+    
+    //会員一覧
+    Route::get('users','Admin\UserController@index')->name('admin_user.get');
+    Route::delete('users','Admin\UserController@destroy')->name('admin_user.delete');
 });
 
 
