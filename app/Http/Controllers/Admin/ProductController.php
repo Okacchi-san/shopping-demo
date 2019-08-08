@@ -145,16 +145,42 @@ class ProductController extends Controller
     
     public function adminUpdate(Request $request)
     {
+        $this->validate($request, [
+            'file' => [
+                // 必須
+                //'required',
+                // アップロードされたファイルであること
+                'file',
+                // 画像ファイルであること
+                'image',
+                // MIMEタイプを指定
+                'mimes:jpeg,png',
+            ]
+        ]);
+        
         $productId = $request->productId;
         $product = Product::find($productId);
         $product->name = $request->name;
         $product->amount = $request->amount;
         $product->description = $request->description;
-        dd(asset('storage/productImages/' . $product->image));
         
+        if($request->hasFile('file')){
+            if ($request->file('file')->isValid([])) {
+                \File::delete('storage/productImages/' . $product->image);
+                $filename = $request->file->store('public/productImages');
+                $product->image = basename($filename);
+                
+            }else {
+                return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors(['file' => '画像がアップロードされていないか不正なデータです。']);
+            }
+        }
+                
         $product->save();
         
-        return redirect()->route('admin_product.get');
+        return redirect()->route('admin_product.get')->with('success', '更新しました。');
     }
     
     public function destroy(Request $request)
@@ -171,6 +197,7 @@ class ProductController extends Controller
         $productId = $request->productId;
         $product = Product::find($productId);
         
+        \File::delete('storage/productImages/' . $product->image);
         $product->delete();
         
         return back();

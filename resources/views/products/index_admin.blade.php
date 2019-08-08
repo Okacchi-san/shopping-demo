@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="container">
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="row">
     @if (count($products) > 0)
         @foreach ($products as $product)
@@ -26,7 +31,7 @@
                     </div>
                     
                     <div class="card-footer text-right">
-                    <form action='{{ route('admin_user.delete') }}' method="POST">
+                    <form action='{{ route('admin_product.delete') }}' method="POST">
                         {{ method_field('delete') }}
                         {{ csrf_field() }}
                             <input readonly type="hidden" name="productId" value="{{ $product->id }}">
