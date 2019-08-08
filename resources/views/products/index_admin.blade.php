@@ -21,24 +21,27 @@
                         <p class="card-text index__card__title">価　格　：　<span class="index__card__product">{{ $product->amount }}円</span></p>
                         <p class="card-text index__card__description">{{ $product->description }}</p>
                     </div>
-                    
-                    <div class="card-footer text-right">
-                    <form action='{{ route('product.edit') }}' method="GET">
-                        {{ csrf_field() }}
-                            <input readonly type="hidden" name="productId" value="{{ $product->id }}">
-                            <button type="submit" class="btn btn-success btn-sm session__btn__adminupdate">更新</button>
-                    </form>
+                    <div class="card-footer">
+                        <div class="btn-toolbar index__btn__change">
+                            <div class="btn-group index__btn__right">
+                                
+                                <form action='{{ route('product.edit') }}' method="GET">
+                                    {{ csrf_field() }}
+                                    <input readonly type="hidden" name="productId" value="{{ $product->id }}">
+                                <button type="submit" class="btn btn-success btn-sm session__btn__adminupdate">更新</button>
+                                </form>
+                            </div>
+                            <div class="btn-group index__btn__right__2">
+                                <form action='{{ route('admin_product.delete') }}' method="POST">
+                                    {{ method_field('delete') }}
+                                    {{ csrf_field() }}
+                                <input readonly type="hidden" name="productId" value="{{ $product->id }}">
+                                <button type="submit" class="btn btn-danger btn-sm session__btn">削除</button>
+                                </form>
+                                
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="card-footer text-right">
-                    <form action='{{ route('admin_product.delete') }}' method="POST">
-                        {{ method_field('delete') }}
-                        {{ csrf_field() }}
-                            <input readonly type="hidden" name="productId" value="{{ $product->id }}">
-                            <button type="submit" class="btn btn-danger btn-sm session__btn">削除</button>
-                    </form>
-                    </div>
-                    
                     <div class="card-footer text-right">
                     <form action="/admin/product/session" method="post" class="index__card__form">
                         {{ csrf_field() }}

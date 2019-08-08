@@ -112,6 +112,16 @@
    
 }
 
+.index__btn__right{
+    display: block;
+    margin: 0 5px 0 auto;
+}
+
+.index__btn__right__2{
+    display: block;
+    margin: 0 15px 0 0;
+}
+
 /* navber.blade.php */
 .nav__brand{
     font-size:16px;
