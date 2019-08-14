@@ -36,8 +36,6 @@ Route::post('product/session','ProductController@ses_push');
 Route::put('product/session','ProductController@update')->name('session.update');
 Route::delete('product/session','ProductController@destroy')->name('session.delete');
 
-
-
 // Auth
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
@@ -53,6 +51,11 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
+// stripe
+Route::post('/home', 'ChargeController@charge')->name('charge.post');
+
+// tcpdf（PDF化）
+Route::get('/pdf/test', 'DocumentController@downloadPdf')->name('pdf.get');;
 
 
 // admin

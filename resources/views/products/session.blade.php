@@ -10,8 +10,8 @@
             <th class="session__table__th" scope="col">小　計</th>
             <th class="session__table__th" scope="col"></th>
         </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     @php
         $rowId = 0;
         $total = 0;
@@ -19,6 +19,7 @@
         $sum_qty = 0;
     @endphp
     @if (session()->has('cart'))
+    
         @foreach ($cart as $product)
             <tr>
                 <th class="session__table__th py-auto" scope="row">{{ ++$rowId }}</th>
@@ -76,14 +77,34 @@
             <div class="col-3">
             <div class="card" style="width: 15rem;">
                 <div class="card-header text-center"><small class="text-muted">お買い上げ金額　<spn class=session__items_count>アイテム数：{{ $sum_qty }}個</spn></small></div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item text-right"><small class="text-muted">小　計：　　{{ $total }}円</small></li>
-                        <li class="list-group-item text-right"><small class="text-muted">消費税：　　{{ $tax }}円</small></li>
-                        <li class="list-group-item text-right"><small class="text-muted">合　計：　　{{ $total+$tax }}円</small></li>
-                        <div class="list-group-item text-center">
-                            <a href="#" class="btn btn-success btn-sm">購入する</a>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-right"><small class="text-muted">小　計：　　{{ $total }}円</small></li>
+                    <li class="list-group-item text-right"><small class="text-muted">消費税：　　{{ $tax }}円</small></li>
+                    <li class="list-group-item text-right"><small class="text-muted">合　計：　　{{ $total+$tax }}円</small></li>
+                    <div class="list-group-item text-center">
+                        <form action='{{ route('charge.post') }}' method="POST">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+          	                <input readonly type="hidden" class="form-control" name="total" value="{{ $total+$tax }}">
                         </div>
-                    </ul>
+                        @if (empty($cart))
+                        <a href="#" class="btn btn-success btn-sm disabled">決済をする</a>
+                        @else
+                        <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="{{ env('STRIPE_APP_OPENKEY') }}"
+                            data-amount="{{ $total+$tax }}"
+                            data-name="TEST"
+                            data-label="決済をする"
+                            data-description="TESTTEST"
+                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                            data-locale="ja"
+                            data-currency="jpy">
+                        </script>
+                        @endif
+                        </form>
+                    </div>
+                </ul>
             </div>  
             </div>
         </div>

@@ -27,8 +27,6 @@
 .session__btn__adminupdate{
     font-size:11px;
     color:#fff;
-    background-color:;
-    
 }
 .session__btn:hover{
     
@@ -51,6 +49,7 @@
     color:#666666;
     
 }
+
 
 /* index.blade.php */
 .index__card__form{
