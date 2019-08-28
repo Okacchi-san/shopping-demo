@@ -38,7 +38,6 @@
                                 <input readonly type="hidden" name="productId" value="{{ $product->id }}">
                                 <button type="submit" class="btn btn-danger btn-sm session__btn">削除</button>
                                 </form>
-                                
                             </div>
                         </div>
                     </div>

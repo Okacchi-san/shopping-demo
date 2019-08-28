@@ -42,7 +42,6 @@ class ProductController extends Controller
         ];
         $oldCart = collect($request->session()->get('cart')); 
         
-        
         if($oldCart->isEmpty())
         {
             $request->session()->push('cart.'.$cart['id'], $cart);

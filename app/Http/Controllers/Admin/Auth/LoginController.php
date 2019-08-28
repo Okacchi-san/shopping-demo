@@ -54,17 +54,5 @@ class LoginController extends Controller
     }
 
     
-    
-    /**
-     * ログイン後の処理
-     * @param Request $request
-     * @param $user
-     */
-     /*
-    protected function authenticated(Request $request, $user)
-    {
-        // ログインイベントを発火させ、最終ログイン日時を記録する
-        event(new Logined());
-    }
-    */
+   
 }

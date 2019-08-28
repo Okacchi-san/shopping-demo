@@ -24,7 +24,6 @@
             <tr>
                 <th class="session__table__th py-auto" scope="row">{{ ++$rowId }}</th>
                 <td class="session__table__td">{{ $product[0]['name'] }}</td>
-                
                 <td class="session__table__td">&emsp;&emsp;
                     {{ $product[0]['qty'] }}
                     <span class="form-inline">&emsp;
@@ -64,8 +63,7 @@
             @endphp
         @endforeach   
     @else
-        <p>商品が選択されていません。</p>
-        
+    <p>商品が選択されていません。</p>
     @endif
     </tbody>
     </table>    

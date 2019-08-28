@@ -9,7 +9,6 @@
             <div class="card">
                 <div class="card-header">商品情報更新</div>
                 <div class="card-body">
-                    
                     <form class="form-horizontal" method="POST" action="{{ route('product.update') }}" enctype="multipart/form-data">
                     {{ method_field('put') }}    
                     {{ csrf_field() }}

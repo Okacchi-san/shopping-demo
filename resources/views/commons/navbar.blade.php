@@ -5,7 +5,6 @@
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
         </button>
-        
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
@@ -33,7 +32,7 @@
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle nav__title" data-toggle="dropdown">{{ Auth::user()->name }}</a>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li class="dropdown-item nav__title__out"><a href="#">My profile</a></li>
+                            <li class="dropdown-item nav__title__out">{!! link_to_route('download.get', '購入履歴') !!}</a></li>
                             <li class="dropdown-divider nav__title"></li>
                             <li class="dropdown-item nav__title__out">{!! link_to_route('logout.get', 'Logout') !!}</li>
                         </ul>

@@ -5,11 +5,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2 mx-auto">
-            
             <div class="card">
                 <div class="card-header">商品登録</div>
                 <div class="card-body">
-                    
                     <form class="form-horizontal" method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">

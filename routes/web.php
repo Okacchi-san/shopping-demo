@@ -15,14 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Auth::routes();
-
 Route::get('/home', 'HomeController@index');
-//Route::get('/home', 'HomeController@getData');
 
-//login
-//Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-//Route::post('login', 'Auth\LoginController@login')->name('login.post');
 //logout
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 //sinup
@@ -52,18 +46,17 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 // stripe
-Route::post('/home', 'ChargeController@charge')->name('charge.post');
+Route::post('document/download', 'ChargeController@charge')->name('charge.post');
 
-// tcpdf（PDF化）
-Route::get('/pdf/test', 'DocumentController@downloadPdf')->name('pdf.get');;
 
+// download
+Route::get('document/download', 'DownloadController@index')->name('download.get');
 
 // admin
 Route::get('admin/login', 'Admin\Auth\LoginController@showAdminLoginForm')->name('admin_login');
 Route::post('admin/login', 'Admin\Auth\LoginController@login')->name('admin_login_post');
 Route::get('/admin/home', 'Admin\HomeController@index')->name('admin_home');
 
-//Route::middleware('auth')->prefix('admin')->group(function(){
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {    
     //Route::post('logout', 'Admin\Auth\LoginController@logout')->name('admin_logout');
     Route::get('logout', 'Admin\Auth\LoginController@logout')->name('admin_logout_get');

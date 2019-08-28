@@ -17,6 +17,7 @@
         $total = 0;
         $tax = 0;
         $sum_qty = 0;
+        $product = null;
     @endphp
     @if (session()->has('cart'))
     
@@ -24,7 +25,6 @@
             <tr>
                 <th class="session__table__th py-auto" scope="row">{{ ++$rowId }}</th>
                 <td class="session__table__td">{{ $product[0]['name'] }}</td>
-                
                 <td class="session__table__td">&emsp;&emsp;
                     {{ $product[0]['qty'] }}
                     <span class="form-inline">&emsp;
@@ -69,7 +69,6 @@
     @endif
     </tbody>
     </table>    
-    
     <div class="container mt-5">
         <div class="row">
             <div class="col-8">
@@ -86,6 +85,9 @@
                         {{ csrf_field() }}
                         <div class="form-group">
           	                <input readonly type="hidden" class="form-control" name="total" value="{{ $total+$tax }}">
+                        </div>
+                        <div class="form-group">
+          	                <input readonly type="hidden" class="form-control" name="productId" value="{{ $product[0]['id'] }}">
                         </div>
                         @if (empty($cart))
                         <a href="#" class="btn btn-success btn-sm disabled">決済をする</a>
